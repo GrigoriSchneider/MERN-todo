@@ -1,23 +1,16 @@
-// Diese methode wir genutzt wenn im package.json file
-//   "type": "module"
-// nicht deklariert ist
-//
-// const express = require("express");
-// const mongoose = require("mongoose");
-// const Todo = require("./models/todo");
-// require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const todos = require("./routes/todos");
+const cors = require("cors");
 
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-import { Todo } from "./models/todo.js";
-
-dotenv.config();
-
-console.log(Todo);
-
+require("dotenv").config();
 const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/todos", todos);
+
 app.get("/", (req, res) => {
   res.send("Welcome to our todosss api...");
 });
