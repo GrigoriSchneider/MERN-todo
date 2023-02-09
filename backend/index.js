@@ -1,9 +1,23 @@
-const express = require("express");
+// Diese methode wir genutzt wenn im package.json file
+//   "type": "module"
+// nicht deklariert ist
+//
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const Todo = require("./models/todo");
+// require("dotenv").config();
+
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+import { Todo } from "./models/todo.js";
+
+dotenv.config();
+
+console.log(Todo);
+
 const app = express();
-const mongoose = require("mongoose");
-
-require("dotenv").config();
-
 app.get("/", (req, res) => {
   res.send("Welcome to our todosss api...");
 });

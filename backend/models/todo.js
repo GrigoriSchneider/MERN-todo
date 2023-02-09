@@ -1,4 +1,5 @@
-const mongoose = requir("mongoose");
+// const mongoose = requir("mongoose");
+import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema({
   name: { type: String, required: true, minlength: 3, maxlength: 200 },
@@ -8,6 +9,10 @@ const todoSchema = new mongoose.Schema({
   date: { type: Date, default: new Date() },
 });
 
-const Todo = mongoose.model("Todo", todoSchema);
+export const Todo = mongoose.model("Todo", todoSchema);
 
-exports.Todo = Todo;
+// exports.Todo = Todo;
+// module.exports.Todo = Todo
+// module.exports = Todo;
+
+// export default Todo;
