@@ -91,7 +91,28 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+
+  if (!todo) return res.status(404).send("Todo not found...");
+
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
+      isComplete: !todo.isComplete,
+    });
+    res.send(updatedTodo);
+  } catch (error) {
+    // 500 server error
+    res.status(500).send(error.message);
+    console.log(error.message);
+  }
+});
+
 router.delete("/:id", async (req, res) => {
+  const todo = await Todo.findById(req.params.id);
+
+  if (!todo) return res.status(404).send("Todo not found...");
+
   try {
     const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
 
