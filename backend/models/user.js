@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-// Schema represents the structur of our documents
+require("dotenv").config();
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true, minlength: 3, maxlength: 30 },
   email: {
@@ -19,3 +20,5 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
+
+exports.User = User;
