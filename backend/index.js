@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const todos = require("./routes/todos");
 const cors = require("cors");
-const signUp = require("./routes/singUp");
+
+const todos = require("./routes/todos");
+const signUp = require("./routes/signUp");
+const signIn = require("./routes/signIn");
 
 require("dotenv").config();
 const app = express();
@@ -12,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/todos", todos);
 app.use("/api/signup", signUp);
+app.use("/api/signin", signIn);
 
 app.get("/", (req, res) => {
   res.send("Welcome to our todosss api...");
