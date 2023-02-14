@@ -46,10 +46,16 @@ const NavBar = () => {
           >
             SignOut
           </Button>
-          <Button sx={{ my: 2, color: "white", display: "block" }} to="/signin">
+          <Button
+            sx={{ my: 2, color: "white", display: "block" }}
+            href="/signin"
+          >
             SignIn
           </Button>
-          <Button sx={{ my: 2, color: "white", display: "block" }} to="/signup">
+          <Button
+            sx={{ my: 2, color: "white", display: "block" }}
+            href="/signup"
+          >
             SignUp
           </Button>
         </Toolbar>
