@@ -10,7 +10,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Stack from "@mui/material/Stack";
 
-const Todo = () => {
+import moment from "moment";
+
+const Todo = ({ todo }) => {
   return (
     <>
       <Box
@@ -36,14 +38,24 @@ const Todo = () => {
             spacing={2}
           >
             <div>
-              <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                Learn React
-              </Typography>
+              {todo.isComplete ? (
+                <Typography
+                  variant="subtitle1"
+                  sx={{ mb: 1, textDecoration: "line-through" }}
+                >
+                  {todo.name}
+                </Typography>
+              ) : (
+                <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                  {todo.name}
+                </Typography>
+              )}
+
               <Typography color="gray" variant="body2">
                 Author: Grigori
               </Typography>
               <Typography color="gray" variant="body2">
-                Added: 2 days agos
+                Added: {moment(todo.date).fromNow()}
               </Typography>
             </div>
           </Stack>
@@ -59,9 +71,16 @@ const Todo = () => {
                 size="small"
                 aria-label="outlined primary button group"
               >
-                <Button>
-                  <CheckCircleIcon color="action" />
-                </Button>
+                {todo.isComplete ? (
+                  <Button>
+                    <CheckCircleIcon color="success" />
+                  </Button>
+                ) : (
+                  <Button>
+                    <CheckCircleIcon color="action" />
+                  </Button>
+                )}
+
                 <Button>
                   <CreateIcon color="primary" />
                 </Button>
