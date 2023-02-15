@@ -1,15 +1,21 @@
-import React from "react";
-import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import CreateIcon from "@mui/icons-material/Create";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Todo from "./Todo";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
+import Todo from "./Todo";
+import { getTodos } from "../../store/actions/todoActions";
+
 const ListTodos = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
+  console.log(todos);
+
+  useEffect(() => {
+    dispatch(getTodos());
+  }, [dispatch]);
+
   return (
     <>
       <Box
