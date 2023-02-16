@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -12,7 +13,10 @@ import Stack from "@mui/material/Stack";
 
 import moment from "moment";
 
+import { checkTodo } from "../../store/actions/todoActions";
+
 const Todo = ({ todo, setTodo }) => {
+  const dispatch = useDispatch();
   const handleUpdateClick = () => {
     setTodo(todo);
 
@@ -21,6 +25,10 @@ const Todo = ({ todo, setTodo }) => {
       left: 0,
       behavior: "smooth",
     });
+  };
+
+  const handleCheck = (id) => {
+    dispatch(checkTodo(id));
   };
 
   return (
@@ -81,15 +89,13 @@ const Todo = ({ todo, setTodo }) => {
                 size="small"
                 aria-label="outlined primary button group"
               >
-                {todo.isComplete ? (
-                  <Button type="submit">
+                <Button type="submit" onClick={() => handleCheck(todo._id)}>
+                  {todo.isComplete ? (
                     <CheckCircleIcon color="success" />
-                  </Button>
-                ) : (
-                  <Button type="submit">
+                  ) : (
                     <CheckCircleIcon color="action" />
-                  </Button>
-                )}
+                  )}
+                </Button>
 
                 <Button type="submit" onClick={() => handleUpdateClick()}>
                   <CreateIcon color="primary" />
