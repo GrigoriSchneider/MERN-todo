@@ -6,10 +6,14 @@ import SignUp from "./components/auth/SignUp";
 import NavBar from "./components/navBar/NavBar";
 import Container from "@mui/material/Container";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ToastContainer />
         <Container maxWidth="md">
           <NavBar />
           <Switch>

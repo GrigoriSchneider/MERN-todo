@@ -10,7 +10,6 @@ import { getTodos } from "../../store/actions/todoActions";
 const ListTodos = ({ setTodo }) => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
-  console.log(todos);
 
   useEffect(() => {
     dispatch(getTodos());
