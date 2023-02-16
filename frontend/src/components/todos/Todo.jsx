@@ -13,7 +13,7 @@ import Stack from "@mui/material/Stack";
 
 import moment from "moment";
 
-import { checkTodo } from "../../store/actions/todoActions";
+import { checkTodo, deleteTodo } from "../../store/actions/todoActions";
 
 const Todo = ({ todo, setTodo }) => {
   const dispatch = useDispatch();
@@ -29,6 +29,9 @@ const Todo = ({ todo, setTodo }) => {
 
   const handleCheck = (id) => {
     dispatch(checkTodo(id));
+  };
+  const handleDelete = (id) => {
+    dispatch(deleteTodo(id));
   };
 
   return (
@@ -101,7 +104,7 @@ const Todo = ({ todo, setTodo }) => {
                   <CreateIcon color="primary" />
                 </Button>
 
-                <Button type="submit">
+                <Button type="submit" onClick={() => handleDelete(todo._id)}>
                   <DeleteIcon color="secondary" />
                 </Button>
               </ButtonGroup>
