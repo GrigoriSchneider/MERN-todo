@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Todo from "./Todo";
 import { getTodos } from "../../store/actions/todoActions";
 
-const ListTodos = () => {
+const ListTodos = ({ setTodo }) => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
   console.log(todos);
@@ -35,7 +35,14 @@ const ListTodos = () => {
         </div>
         {todos &&
           todos.map((todo) => {
-            return <Todo todo={todo} key={todo._id} />;
+            return (
+              <Todo
+                todo={todo}
+                key={todo._id}
+                setTodo={setTodo}
+                todos={todos}
+              />
+            );
           })}
       </Box>
     </>

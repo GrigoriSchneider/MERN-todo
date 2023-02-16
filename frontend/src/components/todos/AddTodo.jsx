@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 
 import TextField from "@mui/material/TextField";
@@ -7,20 +7,32 @@ import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import { addTodo } from "../../store/actions/todoActions";
+import { addTodo, updateTodo } from "../../store/actions/todoActions";
 
-const AddTodo = () => {
+const AddTodo = ({ todo, setTodo }) => {
   const dispatch = useDispatch();
-
-  const [todo, setTodo] = useState({
-    name: "",
-    isComplete: false,
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(addTodo(todo));
+    if (todo._id) {
+      const id = todo._id;
+      const updatedTodo = {
+        name: todo.name,
+        isComplete: todo.isComplete,
+        date: todo.date,
+        author: "Grigori",
+      };
+
+      dispatch(updateTodo(updatedTodo, id));
+    } else {
+      const newTodo = {
+        ...todo,
+        date: new Date(),
+      };
+      dispatch(addTodo(newTodo));
+    }
+
     setTodo({
       name: "",
       isComplete: false,
@@ -53,9 +65,7 @@ const AddTodo = () => {
               fullWidth
               sx={{ mt: 3 }}
               value={todo.name}
-              onChange={(e) =>
-                setTodo({ ...todo, name: e.target.value, date: new Date() })
-              }
+              onChange={(e) => setTodo({ ...todo, name: e.target.value })}
             />
             <Button
               color="primary"

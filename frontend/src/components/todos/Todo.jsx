@@ -12,7 +12,17 @@ import Stack from "@mui/material/Stack";
 
 import moment from "moment";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setTodo }) => {
+  const handleUpdateClick = () => {
+    setTodo(todo);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
       <Box
@@ -72,19 +82,20 @@ const Todo = ({ todo }) => {
                 aria-label="outlined primary button group"
               >
                 {todo.isComplete ? (
-                  <Button>
+                  <Button type="submit">
                     <CheckCircleIcon color="success" />
                   </Button>
                 ) : (
-                  <Button>
+                  <Button type="submit">
                     <CheckCircleIcon color="action" />
                   </Button>
                 )}
 
-                <Button>
+                <Button type="submit" onClick={() => handleUpdateClick()}>
                   <CreateIcon color="primary" />
                 </Button>
-                <Button>
+
+                <Button type="submit">
                   <DeleteIcon color="secondary" />
                 </Button>
               </ButtonGroup>
