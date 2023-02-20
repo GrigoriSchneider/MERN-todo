@@ -6,15 +6,17 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 
 import { Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
   const state = useSelector((state) => state);
   console.log(state);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSignOut = () => {
     // signOut the user
+    dispatch(signOut());
     history.push("/signin");
   };
 
