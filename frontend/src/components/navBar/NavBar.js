@@ -4,11 +4,13 @@ import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { makeStyles } from "tss-react/mui";
 
 import { Link, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  const state = useSelector((state) => state);
+  console.log(state);
   const history = useHistory();
 
   const handleSignOut = () => {

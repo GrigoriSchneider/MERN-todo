@@ -24,3 +24,37 @@ export const signUp = (user) => {
       });
   };
 };
+export const signIn = (creds) => {
+  return (dispatch) => {
+    axios
+      .post(`${url}/signin`, creds)
+      .then((token) => {
+        // key = token
+        localStorage.setItem("token", token.data);
+
+        dispatch({
+          type: "SIGN_IN",
+          token: token.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+
+        toast.error(error.response?.data, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      });
+  };
+};
+
+export const loadUser = () => {
+  return (dispatch, getState) => {
+    const token = getState().auth.token;
+    if (token) {
+      dispatch({
+        type: "USER_LOADED",
+        token,
+      });
+    } else return null;
+  };
+};
