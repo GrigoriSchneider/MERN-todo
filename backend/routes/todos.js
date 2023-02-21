@@ -6,19 +6,20 @@ const Joi = require("joi");
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/", auth, async (req, res, next) => {
   try {
     const todos = await Todo.find().sort({ date: -1 });
-    console.log(req.user);
+    const filteredTodos = todos.filter((todo) => todo.uid === req.user._uid);
+    // console.log(req.user);
 
-    res.send(todos);
+    res.send(filteredTodos);
   } catch (error) {
     res.status(500).send(error.message);
     console.log(error.message);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(3).max(200).required(),
     author: Joi.string().min(3).max(30),
@@ -53,7 +54,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(3).max(200).required(),
     author: Joi.string().min(3).max(30),
@@ -70,6 +71,9 @@ router.put("/:id", async (req, res) => {
     const todo = await Todo.findById(req.params.id);
 
     if (!todo) return res.status(404).send("Todo not found...");
+
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo update failed. Not authorized...");
 
     const { name, author, isComplete, date, uid } = req.body;
 
@@ -93,11 +97,16 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
     if (!todo) return res.status(404).send("Todo not found...");
+
+    if (todo.uid !== req.user._id)
+      return res
+        .status(401)
+        .send("Todo check/uncheck failed. Not authorized...");
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       req.params.id,
@@ -114,11 +123,14 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
 
     if (!todo) return res.status(404).send("Todo not found...");
+
+    if (todo.uid !== req.user._id)
+      return res.status(401).send("Todo deletion failed. Not authorized...");
 
     const deletedTodo = await Todo.findByIdAndDelete(req.params.id);
 

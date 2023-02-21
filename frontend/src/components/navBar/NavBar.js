@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { signOut } from "../../store/actions/authActions";
+
 const NavBar = () => {
   const state = useSelector((state) => state);
   console.log(state);
