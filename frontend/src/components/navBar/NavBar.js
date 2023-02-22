@@ -12,6 +12,7 @@ import { signOut } from "../../store/actions/authActions";
 
 const NavBar = () => {
   const state = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
   console.log(state);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -44,26 +45,36 @@ const NavBar = () => {
               todoApp
             </Link>
           </Typography>
-          <Typography sx={{ flexGrow: 1 }}>logged in as Grigori</Typography>
 
-          <Button
-            sx={{ my: 2, color: "white", display: "block" }}
-            onClick={() => handleSignOut()}
-          >
-            SignOut
-          </Button>
-          <Button
-            sx={{ my: 2, color: "white", display: "block" }}
-            href="/signin"
-          >
-            SignIn
-          </Button>
-          <Button
-            sx={{ my: 2, color: "white", display: "block" }}
-            href="/signup"
-          >
-            SignUp
-          </Button>
+          {auth._id ? (
+            <>
+              <Typography sx={{ flexGrow: 1 }}>
+                logged in as {auth.name}
+              </Typography>
+
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={() => handleSignOut()}
+              >
+                SignOut
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                href="/signin"
+              >
+                SignIn
+              </Button>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                href="/signup"
+              >
+                SignUp
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </>

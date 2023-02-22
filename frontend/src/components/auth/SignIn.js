@@ -15,12 +15,10 @@ const SignIn = () => {
   });
 
   const handleSubmit = (e) => {
+    console.log(auth);
     e.preventDefault();
-    dispatch(signIn(creds));
-    setCreds({
-      email: "",
-      password: "",
-    });
+    dispatch(signIn(creds.email, creds.password));
+    setCreds({ email: "", password: "" });
   };
 
   if (auth._id) return <Redirect to="/" />;

@@ -7,7 +7,6 @@ export const signUp = (user) => {
     axios
       .post(`${url}/signup`, user)
       .then((token) => {
-        // key = token
         localStorage.setItem("token", token.data);
 
         dispatch({
@@ -30,7 +29,6 @@ export const signIn = (email, password) => {
     axios
       .post(`${url}/signin`, { email, password })
       .then((token) => {
-        // key = token
         localStorage.setItem("token", token.data);
 
         dispatch({
